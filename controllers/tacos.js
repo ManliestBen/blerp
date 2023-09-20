@@ -42,9 +42,28 @@ function show(req, res) {
   })
 }
 
+function flipTasty(req, res) {
+  Taco.findById(req.params.tacoId)
+  .then(taco => {
+    taco.tasty = !taco.tasty
+    taco.save()
+    .then(() => {
+      res.redirect(`/tacos/${taco._id}`)
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/tacos')
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/tacos')
+  })
+}
+
 export {
   index,
   create,
   show,
-
+  flipTasty
 }
