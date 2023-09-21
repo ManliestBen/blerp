@@ -27,7 +27,22 @@
       </label>
       <button type="submit">Add 🐱</button>
     </form>
-  <% } %>
+    <% } %>
+    <% if (profile.cats.length) { %>
+      <h2>
+        <%= isSelf ? 'You have' : `${profile.name} has` %> cats!  Here they are!
+      </h2>
+      <% profile.cats.forEach(cat => { %>
+        <h3>
+          <%= getRandomCat() %>
+          <%= cat.name %> is a <%= cat.age %> year old <%= cat.breed %>.
+        </h3>
+      <% }) %>
+    <% } else { %>
+      <h2>
+        <%= isSelf ? "You don't" : `${profile.name} doesn't` %> have any cats!
+      </h2>
+    <% } %>
 </main>
 
 <%- include('../partials/footer') %>

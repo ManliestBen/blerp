@@ -21,7 +21,11 @@ function show(req, res) {
     res.render('profiles/show', {
       title: `😺 ${profile.name}'s profile`,
       profile,
-      isSelf
+      isSelf,
+      getRandomCat: () => {
+        const cats = ["🐈", "🐱", "😸", "😹", "😺", "😻", "😼", "😾", "🙀"]
+        return cats[Math.floor(Math.random() * cats.length)]
+      }
     })
   })
   .catch(err => {
@@ -30,8 +34,27 @@ function show(req, res) {
   })
 }
 
+function createCat(req, res) {
+  Profile.findById(req.user.profile._id)
+  .then(profile => {
+    profile.cats.push(req.body)
+    profile.save()
+    .then(() => {
+      res.redirect(`/profiles/${profile._id}`)
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect(`/profiles/${profile._id}`)
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect(`/profiles/${profile._id}`)
+  })
+}
+
 export {
   index,
   show,
-
+  createCat,
 }
