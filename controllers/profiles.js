@@ -53,8 +53,29 @@ function createCat(req, res) {
   })
 }
 
+function deleteCat(req, res) {
+  Profile.findById(req.user.profile._id)
+  .then(profile => {
+    profile.cats.remove({_id: req.params.catId})
+    profile.save()
+    .then(() => {
+      res.redirect(`/profiles/${profile._id}`)
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect(`/profiles/${profile._id}`)
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect(`/profiles/${profile._id}`)
+  })
+}
+
 export {
   index,
   show,
   createCat,
+  deleteCat,
+
 }

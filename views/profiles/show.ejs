@@ -36,6 +36,15 @@
       <h3>
         <%= getRandomCat() %>
         <%= cat.name %> is a <%= cat.age %> year old <%= cat.breed %>.
+        <% if (isSelf) { %>
+          <form 
+            action="/profiles/cats/<%= cat._id %>?_method=DELETE"
+            method="POST"
+            style="display: inline-block;"
+          >
+            <button type="submit">😸 Free <%= cat.name %></button>
+          </form>
+        <% } %>
       </h3>
     <% }) %>
   <% } else { %>
