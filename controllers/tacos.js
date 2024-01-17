@@ -14,6 +14,12 @@ function index(req, res) {
   })
 }
 
+function create(req, res) {
+  console.log(req.user)
+  req.body.owner = req.user.profile._id
+}
+
 export {
-  index
+  index,
+  create
 }
