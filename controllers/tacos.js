@@ -61,9 +61,23 @@ function flipTasty(req, res) {
   })
 }
 
+function edit(req, res) {
+  Taco.findById(req.params.tacoId)
+  .then(taco => {
+    res.render('tacos/edit', {
+      taco,
+      title: "edit 🌮"
+    })
+  }).catch(err => {
+    console.log(err)
+    res.redirect("/tacos")
+  })
+}
+
 export {
   index,
   create,
   show,
-  flipTasty
+  flipTasty,
+  edit
 }
