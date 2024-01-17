@@ -15,9 +15,19 @@ function index(req, res) {
 }
 
 function create(req, res) {
-  console.log(req.user)
   req.body.owner = req.user.profile._id
+  req.body.tasty = !!req.body.tasty
+  Taco.create(req.body)
+  .then(taco => {
+    res.redirect('/tacos')
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect("/tacos")
+  })
 }
+
+
 
 export {
   index,
