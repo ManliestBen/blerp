@@ -94,11 +94,30 @@ function update(req, res) {
   })
 }
 
+function deleteTaco(req, res) {
+  Taco.findById(req.params.tacoId)
+  .then(taco => {
+    if (taco.owner.equals(req.user.profile._id)) {
+      taco.deleteOne()
+      .then(() =>
+        res.redirect('/tacos')
+      )
+    } else {
+      throw new Error('🚫 Not authorized 🚫')
+    }
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/tacos')
+  })
+}
+
 export {
   index,
   create,
   show,
   flipTasty,
   edit,
-  update
+  update,
+  deleteTaco as delete
 }
