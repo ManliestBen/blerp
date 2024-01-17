@@ -68,7 +68,27 @@ function edit(req, res) {
       taco,
       title: "edit 🌮"
     })
-  }).catch(err => {
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect("/tacos")
+  })
+}
+
+function update(req, res) {
+  Taco.findById(req.params.tacoId)
+  .then(taco => {
+    if (taco.owner.equals(req.user.profile._id)) {
+      req.body.tasty = !!req.body.tasty
+      taco.updateOne(req.body)
+      .then(() => {
+        res.redirect(`/tacos/${taco._id}`)
+      })
+    } else {
+      throw new Error('🚫 Not authorized 🚫')
+    }
+  })
+  .catch(err => {
     console.log(err)
     res.redirect("/tacos")
   })
@@ -79,5 +99,6 @@ export {
   create,
   show,
   flipTasty,
-  edit
+  edit,
+  update
 }
