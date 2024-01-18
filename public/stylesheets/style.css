@@ -110,4 +110,7 @@ nav > a {
   font-size: 16px;
   background-color: #1a1a1a;
   border: none;
+  cursor: pointer;
+  padding: none;
+  margin: 0px;
 }
