@@ -21,6 +21,24 @@
     </form>
   <% } %>
   <h2>Comments</h2>
+  <ul>
+    <% taco.comments?.forEach(comment => { %>
+      <li>
+        <%= comment.content%> 
+        - 
+        <img 
+          class="comment-photo" 
+          src="<%= comment.author.avatar %>" 
+          alt="avatar of commenter"
+        > 
+        <a href="/profiles/<%= comment.author._id %>">
+          <%= comment.author.name %>
+        </a> 
+        at 
+        <%= comment.createdAt.toLocaleString() %>
+      </li>
+    <% }) %>
+  </ul>
   <% if (user) { %>
     <h3>Add a comment</h3>
     <form action="/tacos/<%= taco._id %>/comments" method="POST">

@@ -29,7 +29,10 @@ function create(req, res) {
 
 function show(req, res) {
   Taco.findById(req.params.tacoId)
-  .populate("owner")
+  .populate([
+    {path: "owner"},
+    {path: "comments.author"}
+  ])
   .then(taco => {
     res.render('tacos/show', {
       taco,
