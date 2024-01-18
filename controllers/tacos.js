@@ -1,4 +1,4 @@
-import { Taco } from "../models/taco.js";
+import { Taco } from "../models/taco.js"
 
 function index(req, res) {
   Taco.find({})
@@ -135,6 +135,30 @@ function deleteTaco(req, res) {
   })
 }
 
+function editComment(req, res) {
+  // find the taco using it's _id
+  Taco.findById(req.params.tacoId)
+  .then(taco => {
+    // find the comment using it's _id
+    const comment = taco.comments.id(req.params.commentId)
+    // check to make sure user owns comment
+    if (comment.author.equals(req.user.profile._id)) {
+      // render a view passing the taco and comment and a title
+      res.render('tacos/editComment',{
+        taco,
+        comment,
+        title: 'Update Comment'
+      })
+    } else {
+      throw new Error('🚫 Not authorized 🚫')
+    }
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/tacos')
+  })
+}
+
 export {
   index,
   create,
@@ -143,5 +167,6 @@ export {
   edit,
   addComment,
   update,
-  deleteTaco as delete
+  deleteTaco as delete,
+  editComment
 }
