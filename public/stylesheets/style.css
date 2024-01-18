@@ -82,8 +82,10 @@ nav > a {
   justify-content: center;
 }
 
-.btn {
+.btn, button {
   margin: 16px 0;
+  padding: 8px;
+  border-radius: 8px;
 }
 
 .link {
@@ -99,3 +101,4 @@ nav > a {
 .inline {
   display: inline;
 }
+

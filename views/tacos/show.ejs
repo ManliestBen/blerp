@@ -17,6 +17,14 @@
       <button class="btn">Edit this Taco 🌮🚧</button>
     </a>
   <% } %>
+  <h2>Comments</h2>
+  <% if (user) { %>
+    <h3>Add a comment</h3>
+    <form action="/tacos/<%= taco._id %>/comments" method="POST">
+      <textarea name="content"></textarea><br>
+      <button type="submit">Add Comment</button>
+    </form>
+  <% } %>
 </section>
 
 <%- include('../partials/footer') %>
