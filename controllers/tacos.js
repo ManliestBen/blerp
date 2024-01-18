@@ -74,10 +74,30 @@ function edit(req, res) {
   })
 }
 
+function addComment(req, res) {
+  Taco.findById(req.params.tacoId)
+  .then(taco => {
+    taco.comments.push(req.body)
+    taco.save()
+    .then(() => {
+      res.redirect(`/tacos/${taco._id}`)
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect("/tacos")
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect("/tacos")
+  })
+}
+
 export {
   index,
   create,
   show,
   flipTasty,
-  edit
+  edit,
+  addComment
 }
