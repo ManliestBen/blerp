@@ -7,6 +7,8 @@ const router = Router()
 router.get('/', isLoggedIn, profilesCtrl.index)
 // GET http://localhost:3000/profiles/:profileId
 router.get('/:profileId', isLoggedIn, profilesCtrl.show)
+// POST http://localhost:3000/profiles/:profileId/cats
+router.post('/:profileId/cats', isLoggedIn, profilesCtrl.createCat)
 
 export {
   router

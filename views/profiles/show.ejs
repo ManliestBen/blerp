@@ -10,6 +10,36 @@
     >
   </div>
   <h1>It's a - <%= isSelf ? "you" : profile.name %>!</h1>
+  <% if (isSelf) { %>
+    <h2>Add a cat!</h2>
+    <form action="/profiles/<%= profile._id %>/cats" method="POST">
+      <label>
+        Name: 
+        <input type="text" name="name" autocomplete="off">
+      </label>
+      <label>
+        Age: 
+        <input type="number" name="age" autocomplete="off">
+      </label>
+      <label>
+        Breed: 
+        <input type="text" name="breed" autocomplete="off">
+      </label>
+      <button type="submit">Add 🐱</button>
+    </form>
+  <% } %>
+  <% if (profile.cats.length) { %>
+    <% profile.cats.forEach(cat => { %>
+      <h3>
+        <%= getRandomCat() %>
+        <%= cat.name %> is a <%= cat.age %> year old <%= cat.breed %>.
+      </h3>
+    <% }) %>
+  <% } else { %>
+    <h2>
+      <%= isSelf ? "You don't" : `${profile.name} doesn't` %> have any cats.
+    </h2> 
+  <% } %>
 </main>
 
 <%- include('../partials/footer') %>
