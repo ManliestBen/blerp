@@ -183,6 +183,30 @@ function updateComment(req, res) {
   })
 }
 
+function deleteComment(req, res) {
+  Taco.findById(req.params.tacoId)
+  .then(taco => {
+    const comment = taco.comments.id(req.params.commentId)
+    if (comment.author.equals(req.user.profile._id)) {
+      taco.comments.remove(comment)
+      taco.save()
+      .then(() => {
+        res.redirect(`/tacos/${taco._id}`)
+      })
+      .catch(err => {
+        console.log(err)
+        res.redirect('/tacos')
+      })
+    } else {
+      throw new Error('🚫 Not authorized 🚫')
+    }
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/tacos')
+  })
+}
+
 export {
   index,
   create,
@@ -193,5 +217,6 @@ export {
   update,
   deleteTaco as delete,
   editComment,
-  updateComment
+  updateComment,
+  deleteComment
 }
