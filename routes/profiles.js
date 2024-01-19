@@ -7,8 +7,10 @@ const router = Router()
 router.get('/', isLoggedIn, profilesCtrl.index)
 // GET http://localhost:3000/profiles/:profileId
 router.get('/:profileId', isLoggedIn, profilesCtrl.show)
-// POST http://localhost:3000/profiles/:profileId/cats
-router.post('/:profileId/cats', isLoggedIn, profilesCtrl.createCat)
+// POST http://localhost:3000/profiles/cats
+router.post('/cats', isLoggedIn, profilesCtrl.createCat)
+// DELETE http://localhost:3000/profiles/cats/:catId
+router.delete('/cats/:catId', isLoggedIn, profilesCtrl.deleteCat)
 
 export {
   router

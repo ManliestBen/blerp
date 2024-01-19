@@ -12,7 +12,7 @@
   <h1>It's a - <%= isSelf ? "you" : profile.name %>!</h1>
   <% if (isSelf) { %>
     <h2>Add a cat!</h2>
-    <form action="/profiles/<%= profile._id %>/cats" method="POST">
+    <form action="/profiles/cats" method="POST">
       <label>
         Name: 
         <input type="text" name="name" autocomplete="off">
@@ -34,6 +34,15 @@
         <%= getRandomCat() %>
         <%= cat.name %> is a <%= cat.age %> year old <%= cat.breed %>.
       </h3>
+      <% if (isSelf) { %>
+        <form 
+            action="/profiles/cats/<%= cat._id %>?_method=DELETE" 
+            method="POST"
+            style="display: inline-block;"
+          >
+            <button type="submit">😸 Free <%= cat.name %></button>
+          </form>
+      <% } %>
     <% }) %>
   <% } else { %>
     <h2>
