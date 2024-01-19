@@ -114,3 +114,8 @@ nav > a {
   padding: none;
   margin: 0px;
 }
+
+li {
+  display: flex;
+  align-items: center;
+}

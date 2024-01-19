@@ -25,7 +25,7 @@
     <% taco.comments?.forEach(comment => { %>
       <li>
         <%= comment.content%> 
-        - 
+        -&nbsp; 
         <img 
           class="comment-photo" 
           src="<%= comment.author.avatar %>" 
@@ -34,12 +34,15 @@
         <a href="/profiles/<%= comment.author._id %>">
           <%= comment.author.name %>
         </a> 
-        at 
+        &nbsp;at 
         <%= comment.createdAt.toLocaleString() %>
         <% if (comment.author.equals(user?.profile._id)) { %>
-          <a href="/tacos/<%= taco._id %>/comments/<%= comment._id %>/edit">
-            <button class="btn edit-btn">📝</button>
-          </a>
+          <form action="/tacos/<%= taco._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+            <button class="btn edit-btn">🗑️</button>
+          </form>
+            <a href="/tacos/<%= taco._id %>/comments/<%= comment._id %>/edit">
+              <button class="btn edit-btn">📝</button>
+            </a>
         <% } %> 
       </li>
     <% }) %>
